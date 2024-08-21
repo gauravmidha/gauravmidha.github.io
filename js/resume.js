@@ -2,27 +2,33 @@
   "use strict"; // Start of use strict
 
   // Smooth scrolling using jQuery easing
-  $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function() {
-    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-      var target = $(this.hash);
+  $('a.js-scroll-trigger[href*="#"]:not([href="#"])').on('click', function(event) {
+    // Ensure the pathname and hostname match
+    if (location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') && location.hostname === this.hostname) {
+      let target = $(this.hash);
       target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+
+      // If target exists, animate scrolling
       if (target.length) {
         $('html, body').animate({
-          scrollTop: (target.offset().top)
+          scrollTop: target.offset().top
         }, 1000, "easeInOutExpo");
-        return false;
+
+        // Prevent default anchor click behavior
+        event.preventDefault();
       }
     }
   });
 
-  // Closes responsive menu when a scroll trigger link is clicked
-  $('.js-scroll-trigger').click(function() {
+  // Close responsive menu when a scroll trigger link is clicked
+  $('.js-scroll-trigger').on('click', function() {
     $('.navbar-collapse').collapse('hide');
   });
 
   // Activate scrollspy to add active class to navbar items on scroll
   $('body').scrollspy({
-    target: '#sideNav'
+    target: '#sideNav',
+    offset: 50 // Adjust the offset for a more precise active class detection
   });
 
 })(jQuery); // End of use strict
