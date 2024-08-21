@@ -31,4 +31,20 @@
     offset: 50 // Adjust the offset for a more precise active class detection
   });
 
+  // Dark Mode Toggle Functionality
+  const darkModeToggle = document.getElementById('toggle-dark-mode');
+  const isDarkMode = localStorage.getItem('dark-mode') === 'true';
+  
+  // Set the initial dark mode state based on user preference
+  darkModeToggle.checked = isDarkMode;
+  if (isDarkMode) {
+    document.body.classList.add('dark-mode');
+  }
+
+  // Toggle dark mode on switch change
+  darkModeToggle.addEventListener('change', function() {
+    document.body.classList.toggle('dark-mode', darkModeToggle.checked);
+    localStorage.setItem('dark-mode', darkModeToggle.checked); // Save user preference
+  });
+
 })(jQuery); // End of use strict
